@@ -11,9 +11,21 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    for letter in plaintext:
+        if letter.isalpha():
+            if letter.islower():
+                ascii = 97
+            else:
+                ascii = 65
+            encrypted_char = chr((ord(letter) - ascii + shift) % 26 + ascii)  # noqa
+            ciphertext += encrypted_char
+        else:
+            ciphertext += letter
     return ciphertext
+word = input("Введите слово для шифрования: ")
 
+encrypted_word = encrypt_caesar(word)
+print("Зашифрованное слово:", encrypted_word)
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
@@ -28,5 +40,20 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    for letter in ciphertext:
+        if letter.isalpha():
+            if letter.islower():
+                ascii = 97
+            else:
+                ascii = 65
+            decrypted_word = chr((ord(letter) - ascii - shift) % 26 + ascii)
+            plaintext += decrypted_word
+        else:
+            plaintext += letter
     return plaintext
+
+
+word = input("Введите зашифрованное слово для расшифровки: ")
+
+decrypted_char = decrypt_caesar(word)
+print("Расшифрованное слово:", decrypted_char)
