@@ -22,10 +22,13 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
         else:
             ciphertext += letter
     return ciphertext
+
+
 word = input("Введите слово для шифрования: ")
 
 encrypted_word = encrypt_caesar(word)
 print("Зашифрованное слово:", encrypted_word)
+
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
