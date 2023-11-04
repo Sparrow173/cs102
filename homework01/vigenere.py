@@ -1,3 +1,8 @@
+'''
+Шифр "Виженера"
+'''
+
+
 def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     """
     Encrypts plaintext using a Vigenere cipher.
@@ -14,14 +19,14 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
             keyword_char = keyword[i % len(keyword)]
             plain_char = plaintext[i]
             if plaintext[i].islower():
-                ascii = 97
+                ascii_value = 97
             else:
-                ascii = 65
-            key_shift = ord(keyword_char) - ascii
-            char_shift = ord(plain_char) - ascii
+                ascii_value = 65
+            key_shift = ord(keyword_char) - ascii_value
+            char_shift = ord(plain_char) - ascii_value
             encrypted_shift = (key_shift + char_shift) % 26
 
-            encrypted_char = chr(encrypted_shift + ascii)
+            encrypted_char = chr(encrypted_shift + ascii_value)
             ciphertext += encrypted_char
         else:
             ciphertext += plaintext[i]
@@ -29,11 +34,11 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     return ciphertext
 
 
-plaintext = input("Введите слово для шифрования: ")
-keyword = input("Введите ключ-слово: ")
-ciphertext = encrypt_vigenere(plaintext, keyword)
+PLAINTEXT = input("Введите слово для шифрования: ")
+KEYWORD = input("Введите ключ-слово: ")
+CIPHERTEXT = encrypt_vigenere(PLAINTEXT, KEYWORD)
 
-print(f"Зашифрованный текст: {ciphertext}")
+print(f"Зашифрованный текст: {CIPHERTEXT}")
 
 
 def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
@@ -52,14 +57,14 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
             keyword_char = keyword[i % len(keyword)]
             cipher_char = ciphertext[i]
             if ciphertext[i].islower():
-                ascii = 97
+                ascii_value = 97
             else:
-                ascii = 65
-            key_shift = ord(keyword_char) - ascii
-            char_shift = ord(cipher_char) - ascii
+                ascii_value = 65
+            key_shift = ord(keyword_char) - ascii_value
+            char_shift = ord(cipher_char) - ascii_value
             shift = (char_shift - key_shift + 26) % 26
 
-            decrypted_char = chr(shift + ascii)
+            decrypted_char = chr(shift + ascii_value)
             plaintext += decrypted_char
         else:
             plaintext += ciphertext[i]
@@ -67,8 +72,8 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     return plaintext
 
 
-ciphertext = input("Введите слово для расшифровки: ")
-keyword = input("Введите ключ-слово: ")
-plaintext = decrypt_vigenere(ciphertext, keyword)
+CIPHERTEXT = input("Введите слово для расшифровки: ")
+KEYWORD = input("Введите ключ-слово: ")
+PLAINTEXT = decrypt_vigenere(CIPHERTEXT, KEYWORD)
 
-print(f"Расшифрованный текст: {plaintext}")
+print(f"Расшифрованный текст: {PLAINTEXT}")
