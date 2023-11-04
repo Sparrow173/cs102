@@ -12,15 +12,14 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    def is_prime(n: int) -> bool:
-        prime_nums = (2, 3, 5, 7)
-        for i in prime_nums:
-            if n == i:
-                return True
-        if n != 2 and n % 2 == 0 or n != 3 and n % 3 == 0 or n != 5 and n % 5 == 0 or n != 7 and n % 7 == 0:  # noqa
-            return False
-        else:
+    prime_nums = (2, 3, 5, 7)
+    for i in prime_nums:
+        if n == i:
             return True
+    if n != 2 and n % 2 == 0 or n != 3 and n % 3 == 0 or n != 5 and n % 5 == 0 or n != 7 and n % 7 == 0:  # noqa
+        return False
+    else:
+        return True
 
 
 n = int(input())
@@ -39,16 +38,16 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    if a == 0:
-        return b
-    else:
-        return gcd(b, a % b)
+    while b != 0:
+        a, b = b, a % b
+    return a
 
 
 a = int(input('Введите число a: '))
 b = int(input('Введите число b: '))
 gcd_num = gcd(a, b)
-print('gcd for a and b: ')
+if gcd_num == 1:
+    print(f'gcd for a and b: {gcd_num}')
 pass
 
 
@@ -59,21 +58,24 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    d = pow(e, -1, phi)
+    return d
 
 
-def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
+pass
+
+
+def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:  # noqa
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
     elif p == q:
         raise ValueError("p and q cannot be equal")
 
     # n = pq
-    # PUT YOUR CODE HERE
+    n = p * q
 
     # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)

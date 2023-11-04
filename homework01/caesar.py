@@ -25,8 +25,8 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
 
 
 word = input("Введите слово для шифрования: ")
-
-encrypted_word = encrypt_caesar(word)
+shift = int(input('Введите число сдвига: '))
+encrypted_word = encrypt_caesar(word, shift)
 print("Зашифрованное слово:", encrypted_word)
 
 
@@ -57,6 +57,7 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
 
 
 word = input("Введите зашифрованное слово для расшифровки: ")
+shift = int(input('Введите число сдвига: '))
 
-decrypted_char = decrypt_caesar(word)
+decrypted_char = decrypt_caesar(word, shift)
 print("Расшифрованное слово:", decrypted_char)
