@@ -25,7 +25,6 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
             key_shift = ord(keyword_char) - ascii_value
             char_shift = ord(plain_char) - ascii_value
             encrypted_shift = (key_shift + char_shift) % 26
-
             encrypted_char = chr(encrypted_shift + ascii_value)
             ciphertext += encrypted_char
         else:
@@ -34,11 +33,11 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     return ciphertext
 
 
-PLAINTEXT = input("Введите слово для шифрования: ")
-KEYWORD = input("Введите ключ-слово: ")
+PLAINTEXT = input("Enter a word: ")
+KEYWORD = input("Enter a keyword: ")
 CIPHERTEXT = encrypt_vigenere(PLAINTEXT, KEYWORD)
 
-print(f"Зашифрованный текст: {CIPHERTEXT}")
+print(f"Encrypted word: {CIPHERTEXT}")
 
 
 def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
@@ -72,8 +71,8 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     return plaintext
 
 
-CIPHERTEXT = input("Введите слово для расшифровки: ")
-KEYWORD = input("Введите ключ-слово: ")
+CIPHERTEXT = input("Enter cipher: ")
+KEYWORD = input("Enter keyword: ")
 PLAINTEXT = decrypt_vigenere(CIPHERTEXT, KEYWORD)
 
-print(f"Расшифрованный текст: {PLAINTEXT}")
+print(f"Decrypted word: {PLAINTEXT}")
