@@ -1,4 +1,4 @@
-name: CS102 Workflow test
+name: CS102 Workflow
 
 on: [pull_request]
 
