@@ -65,7 +65,6 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
 
 
 if __name__ == "__main__":
-
     PLAINTEXT = input("Enter a word: ")
     KEYWORD = input("Enter a keyword: ")
     CIPHERTEXT = encrypt_vigenere(PLAINTEXT, KEYWORD)
