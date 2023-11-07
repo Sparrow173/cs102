@@ -1,3 +1,6 @@
+"""
+RSA Шифрование
+"""
 import random
 import typing as tp
 
@@ -12,8 +15,23 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
-    pass
+    prime_nums = (2, 3, 5, 7)
+    for i in prime_nums:
+        if n == i:
+            return True
+    if n != 2 and n % 2 == 0 or n != 3 and n % 3 == 0:
+        return False
+    elif n != 5 and n % 5 == 0 or n != 7 and n % 7 == 0:
+        return False
+    else:
+        return True
+
+
+n = int(input("Enter n: "))
+if is_prime(n) is True:
+    print("True")
+else:
+    print("False")
 
 
 def gcd(a: int, b: int) -> int:
@@ -24,8 +42,16 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+
+A = int(input("Enter a: "))
+B = int(input("Enter b: "))
+GCD_NUM = gcd(A, B)
+if GCD_NUM == 1:
+    print(f"gcd for a and b: {GCD_NUM}")
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
@@ -35,21 +61,32 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    d = pow(e, -1, phi)
+    return d
 
 
-def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
+E = int(input("Enter e: "))
+PHI = int(input("Enter phi: "))
+MULTIPLICATIVE_INVERSE_NUM = pow(E, PHI)
+print()
+
+
+def generate_keypair(
+    p: int, q: int
+) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:  # noqa
+    """
+    Генерация ключей для RSA шифрования
+    """
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
     elif p == q:
         raise ValueError("p and q cannot be equal")
 
     # n = pq
-    # PUT YOUR CODE HERE
+    n = p * q
 
     # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
@@ -82,7 +119,7 @@ def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
     # Unpack the key into its components
     key, n = pk
     # Generate the plaintext based on the ciphertext and key using a^b mod m
-    plain = [chr((char ** key) % n) for char in ciphertext]
+    plain = [chr((char**key) % n) for char in ciphertext]
     # Return the array of bytes as a string
     return "".join(plain)
 
@@ -92,12 +129,12 @@ if __name__ == "__main__":
     p = int(input("Enter a prime number (17, 19, 23, etc): "))
     q = int(input("Enter another prime number (Not one you entered above): "))
     print("Generating your public/private keypairs now . . .")
-    public, private = generate_keypair(p, q)
-    print("Your public key is ", public, " and your private key is ", private)
-    message = input("Enter a message to encrypt with your private key: ")
-    encrypted_msg = encrypt(private, message)
+    PUBLIC, PRIVATE = generate_keypair(p, q)
+    print("Your public key is ", PUBLIC, " and your private key is ", PRIVATE)
+    MESSAGE = input("Enter a message to encrypt with your private key: ")
+    ENCRYPTED_MSG = encrypt(PRIVATE, MESSAGE)
     print("Your encrypted message is: ")
-    print("".join(map(lambda x: str(x), encrypted_msg)))
-    print("Decrypting message with public key ", public, " . . .")
+    print("".join(map(lambda x: str(x), ENCRYPTED_MSG)))
+    print("Decrypting message with public key ", PUBLIC, " . . .")
     print("Your message is:")
-    print(decrypt(public, encrypted_msg))
+    print(decrypt(PUBLIC, ENCRYPTED_MSG))

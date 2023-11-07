@@ -1,3 +1,8 @@
+"""
+Шифр "Цезарь"
+"""
+
+
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -11,23 +16,25 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    for letter in plaintext:
-        if letter.isalpha():
-            if letter.islower():
-                ascii = 97
+    for char in plaintext:
+        if char.isalpha():
+            if char.islower():
+                ascii_value = 97
             else:
-                ascii = 65
-            encrypted_char = chr((ord(letter) - ascii + shift) % 26 + ascii)  # noqa
+                ascii_value = 65
+            encrypted_char = chr(
+                (ord(char) - ascii_value + shift) % 26 + ascii_value
+            )  # noqa
             ciphertext += encrypted_char
         else:
-            ciphertext += letter
+            ciphertext += char
     return ciphertext
 
 
-word = input("Введите слово для шифрования: ")
-
-encrypted_word = encrypt_caesar(word)
-print("Зашифрованное слово:", encrypted_word)
+TEXT = input("Enter a word: ")
+SHIFT_NUMBER = int(input("Enter a shift: "))
+encrypted_word = encrypt_caesar(TEXT, SHIFT_NUMBER)
+print("Encrypted word:", encrypted_word)
 
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
@@ -43,20 +50,23 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    for letter in ciphertext:
-        if letter.isalpha():
-            if letter.islower():
-                ascii = 97
+    for char in ciphertext:
+        if char.isalpha():
+            if char.islower():
+                ascii_value = 97
             else:
-                ascii = 65
-            decrypted_word = chr((ord(letter) - ascii - shift) % 26 + ascii)
+                ascii_value = 65
+            decrypted_word = chr(
+                (ord(char) - ascii_value - shift) % 26 + ascii_value
+            )  # noqa
             plaintext += decrypted_word
         else:
-            plaintext += letter
+            plaintext += char
     return plaintext
 
 
-word = input("Введите зашифрованное слово для расшифровки: ")
+CIPHERTEXT = input("Enter cipher: ")
+SHIFT_NUMBER = int(input("Enter shift: "))
 
-decrypted_char = decrypt_caesar(word)
-print("Расшифрованное слово:", decrypted_char)
+decrypted_char = decrypt_caesar(CIPHERTEXT, SHIFT_NUMBER)
+print("Decrypted word:", decrypted_char)
