@@ -22,7 +22,7 @@ def is_prime(n: int) -> bool:
     if num <= 1:
         simple = False
     else:
-        while count <= num ** 0.5 and simple is True:
+        while count <= num**0.5 and simple is True:
             if num % count == 0:
                 simple = False
             else:
