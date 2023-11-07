@@ -71,9 +71,7 @@ MULTIPLICATIVE_INVERSE_NUM = pow(E, PHI)
 print()
 
 
-def generate_keypair(
-    p: int, q: int
-) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:  # noqa
+def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:  # noqa
     """
     Генерация ключей для RSA шифрования
     """
