@@ -33,13 +33,6 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     return ciphertext
 
 
-PLAINTEXT = input("Enter a word: ")
-KEYWORD = input("Enter a keyword: ")
-CIPHERTEXT = encrypt_vigenere(PLAINTEXT, KEYWORD)
-
-print(f"Encrypted word: {CIPHERTEXT}")
-
-
 def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     """
     Decrypts a ciphertext using a Vigenere cipher.
@@ -71,8 +64,15 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     return plaintext
 
 
-CIPHERTEXT = input("Enter cipher: ")
-KEYWORD = input("Enter keyword: ")
-PLAINTEXT = decrypt_vigenere(CIPHERTEXT, KEYWORD)
+if __name__ == "__main__":
 
-print(f"Decrypted word: {PLAINTEXT}")
+    PLAINTEXT = input("Enter a word: ")
+    KEYWORD = input("Enter a keyword: ")
+    CIPHERTEXT = encrypt_vigenere(PLAINTEXT, KEYWORD)
+
+    print(f"Encrypted word: {CIPHERTEXT}")
+    CIPHERTEXT = input("Enter cipher: ")
+    KEYWORD = input("Enter keyword: ")
+    PLAINTEXT = decrypt_vigenere(CIPHERTEXT, KEYWORD)
+
+    print(f"Decrypted word: {PLAINTEXT}")

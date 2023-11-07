@@ -29,12 +29,6 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     return ciphertext
 
 
-TEXT = input("Enter a word: ")
-SHIFT_NUMBER = int(input("Enter a shift: "))
-encrypted_word = encrypt_caesar(TEXT, SHIFT_NUMBER)
-print("Encrypted word:", encrypted_word)
-
-
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     Decrypts a ciphertext using a Caesar cipher.
@@ -61,8 +55,14 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     return plaintext
 
 
-CIPHERTEXT = input("Enter cipher: ")
-SHIFT_NUMBER = int(input("Enter shift: "))
+if __name__ == "__main__":
+    TEXT = input("Enter a word: ")
+    SHIFT_NUMBER = int(input("Enter a shift: "))
+    encrypted_word = encrypt_caesar(TEXT, SHIFT_NUMBER)
+    print("Encrypted word:", encrypted_word)
 
-decrypted_char = decrypt_caesar(CIPHERTEXT, SHIFT_NUMBER)
-print("Decrypted word:", decrypted_char)
+    CIPHERTEXT = input("Enter cipher: ")
+    SHIFT_NUMBER = int(input("Enter shift: "))
+
+    decrypted_char = decrypt_caesar(CIPHERTEXT, SHIFT_NUMBER)
+    print("Decrypted word:", decrypted_char)

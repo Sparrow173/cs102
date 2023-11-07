@@ -27,13 +27,6 @@ def is_prime(n: int) -> bool:
         return True
 
 
-n = int(input("Enter n: "))
-if is_prime(n) is True:
-    print("True")
-else:
-    print("False")
-
-
 def gcd(a: int, b: int) -> int:
     """
     Euclid's algorithm for determining the greatest common divisor.
@@ -47,13 +40,6 @@ def gcd(a: int, b: int) -> int:
     return a
 
 
-A = int(input("Enter a: "))
-B = int(input("Enter b: "))
-GCD_NUM = gcd(A, B)
-if GCD_NUM == 1:
-    print(f"gcd for a and b: {GCD_NUM}")
-
-
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
     Euclid's extended algorithm for finding the multiplicative
@@ -63,12 +49,6 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     """
     d = pow(e, -1, phi)
     return d
-
-
-E = int(input("Enter e: "))
-PHI = int(input("Enter phi: "))
-MULTIPLICATIVE_INVERSE_NUM = pow(E, PHI)
-print()
 
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:  # noqa
@@ -123,6 +103,23 @@ def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
 
 
 if __name__ == "__main__":
+    n = int(input("Enter n: "))
+    if is_prime(n) is True:
+        print("True")
+    else:
+        print("False")
+
+    A = int(input("Enter a: "))
+    B = int(input("Enter b: "))
+    GCD_NUM = gcd(A, B)
+    if GCD_NUM == 1:
+        print(f"gcd for a and b: {GCD_NUM}")
+
+    E = int(input("Enter e: "))
+    PHI = int(input("Enter phi: "))
+    MULTIPLICATIVE_INVERSE_NUM = pow(E, PHI)
+    print()
+
     print("RSA Encrypter/ Decrypter")
     p = int(input("Enter a prime number (17, 19, 23, etc): "))
     q = int(input("Enter another prime number (Not one you entered above): "))
