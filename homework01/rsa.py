@@ -15,16 +15,19 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    prime_nums = (2, 3, 5, 7)
-    for i in prime_nums:
-        if n == i:
-            return True
-    if n != 2 and n % 2 == 0 or n != 3 and n % 3 == 0:
-        return False
-    elif n != 5 and n % 5 == 0 or n != 7 and n % 7 == 0:
-        return False
+    num = n
+    count = 2
+    simple = True
+
+    if num <= 1:
+        simple = False
     else:
-        return True
+        while count <= num ** 0.5 and simple is True:
+            if num % count == 0:
+                simple = False
+            else:
+                count = count + 1
+    return simple
 
 
 def gcd(a: int, b: int) -> int:
