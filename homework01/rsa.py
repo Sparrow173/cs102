@@ -21,6 +21,7 @@ def is_prime(n: int) -> bool:
     while count <= n**0.5:
         if n % count == 0:
             return False
+        count += 1
     return True
 
 
