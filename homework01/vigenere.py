@@ -17,13 +17,12 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     for i, char in enumerate(plaintext):
         if char.isalpha():
             keyword_char = keyword[i % len(keyword)]
-            plain_char = char
             if char.islower():
                 ascii_value = ord('a')
             else:
                 ascii_value = ord('A')
             key_shift = ord(keyword_char) - ascii_value
-            char_shift = ord(plain_char) - ascii_value
+            char_shift = ord(char) - ascii_value
             shift = (char_shift + key_shift) % 26
 
             encrypted_char = chr(shift + ascii_value)
@@ -48,13 +47,12 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     for i, char in enumerate(ciphertext):
         if char.isalpha():
             keyword_char = keyword[i % len(keyword)]
-            cipher_char = char
             if char.islower():
                 ascii_value = ord('a')
             else:
                 ascii_value = ord('A')
             key_shift = ord(keyword_char) - ascii_value
-            char_shift = ord(cipher_char) - ascii_value
+            char_shift = ord(char) - ascii_value
             shift = (char_shift - key_shift + 26) % 26
 
             decrypted_char = chr(shift + ascii_value)
