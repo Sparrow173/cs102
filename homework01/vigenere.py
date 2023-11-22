@@ -14,21 +14,22 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     'LXFOPVEFRNHR'
     """
     ciphertext = ""
-    for i in range(len(plaintext)):
-        if plaintext[i].isalpha():
+    for i, char in enumerate(plaintext):
+        if char.isalpha():
             keyword_char = keyword[i % len(keyword)]
-            plain_char = plaintext[i]
-            if plaintext[i].islower():
+            plain_char = char
+            if char.islower():
                 ascii_value = 97
             else:
                 ascii_value = 65
             key_shift = ord(keyword_char) - ascii_value
             char_shift = ord(plain_char) - ascii_value
-            encrypted_shift = (key_shift + char_shift) % 26
-            encrypted_char = chr(encrypted_shift + ascii_value)
+            shift = (char_shift + key_shift) % 26
+
+            encrypted_char = chr(shift + ascii_value)
             ciphertext += encrypted_char
         else:
-            ciphertext += plaintext[i]
+            ciphertext += char
 
     return ciphertext
 
