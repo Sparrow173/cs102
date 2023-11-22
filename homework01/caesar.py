@@ -19,9 +19,9 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     for char in plaintext:
         if char.isalpha():
             if char.islower():
-                ascii_value = 97
+                ascii_value = ord('a')
             else:
-                ascii_value = 65
+                ascii_value = ord('A')
             encrypted_char = chr((ord(char) - ascii_value + shift) % 26 + ascii_value)  # noqa
             ciphertext += encrypted_char
         else:
@@ -45,9 +45,9 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     for char in ciphertext:
         if char.isalpha():
             if char.islower():
-                ascii_value = 97
+                ascii_value = ord('a')
             else:
-                ascii_value = 65
+                ascii_value = ord('A')
             decrypted_word = chr((ord(char) - ascii_value - shift) % 26 + ascii_value)  # noqa
             plaintext += decrypted_word
         else:
