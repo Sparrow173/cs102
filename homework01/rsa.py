@@ -17,12 +17,11 @@ def is_prime(n: int) -> bool:
 
     if n <= 1:
         return False
-    else:
-        while count <= n**0.5 and simple is True:
-            if n % count == 0:
-                return False
-            else:
-                count = count + 1
+    while count <= n**0.5 and simple is True:
+        if n % count == 0:
+            return False
+        else:
+            count = count + 1
     return True
 
 
