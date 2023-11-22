@@ -16,14 +16,11 @@ def is_prime(n: int) -> bool:
     False
     """
     count = 2
-    simple = True
     if n <= 1:
         return False
-    while count <= n**0.5 and simple is True:
+    while count <= n**0.5:
         if n % count == 0:
             return False
-        else:
-            count = count + 1
     return True
 
 
