@@ -1,5 +1,6 @@
 import pathlib
 import random
+import time
 import typing as tp
 
 
@@ -217,3 +218,12 @@ if __name__ == "__main__":
             print(f"Puzzle {fname} can't be solved")
         else:
             display(solution)
+
+
+if __name__ == "__main__":
+    for filename in ("puzzle1.txt", "puzzle2.txt", "puzzle3.txt"):
+        grid = read_sudoku(filename)
+        start = time.time()
+        solve(grid)
+        end = time.time()
+        print(f"{filename}: {end-start}")
