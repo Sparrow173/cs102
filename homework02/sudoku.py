@@ -126,7 +126,6 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
         num = str(num)
         if (num not in row_values) and (num not in col_values) and (num not in block_values):
             result.add(num)
-
     return result
 
 
@@ -145,14 +144,15 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     if find_empty_positions(grid) is None:
         return grid
     pos = find_empty_positions(grid)
-    values = find_possible_values(grid, pos)
-    if values is not None:
-        for i in values:
-            grid[pos[0]][pos[1]] = i
-            if solve(grid) is None:
-                grid[pos[0]][pos[1]] = "."
-            else:
-                return grid
+    if pos is not None:
+        values = find_possible_values(grid, pos)
+        if values is not None:
+            for i in values:
+                grid[pos[0]][pos[1]] = i
+                if solve(grid) is None:
+                    grid[pos[0]][pos[1]] = "."
+                else:
+                    return grid
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
@@ -195,7 +195,6 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     N = min(N, 81)
     grid = [["."] * 9 for _ in range(9)]
     random_grid = solve(grid)
-
     while sum(1 for row in random_grid for e in row if e == ".") != (81 - N):
         row, col = random.randint(0, 8), random.randint(0, 8)
         if random_grid[row][col] != ".":
