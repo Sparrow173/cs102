@@ -194,9 +194,10 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    N = min(N, 81)
+    if N >= 81:
+        N = 81
     grid: list[list[str]] = [["."] * 9 for _ in range(9)]
-    random_grid: tp.List[tp.List[str]] = solve(grid)
+    random_grid: list[list[str]] = solve(grid)
     if random_grid is not None:
         while sum(1 for q in grid for e in q if e == ".") != (81 - N):
             row, col = random.randint(0, 8), random.randint(0, 8)
