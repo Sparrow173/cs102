@@ -3,7 +3,6 @@ import random
 import time
 import typing as tp
 
-
 T = tp.TypeVar("T")
 
 
