@@ -22,15 +22,11 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
 
 
 def display(grid: tp.List[tp.List[str]]) -> None:
-    """Вывод Судоку """
+    """ Вывод Судоку """
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
-        print(
-            "".join(
-                grid[row][col].center(width) + ("|" if str(col) in "25" else "") for col in range(9)
-            )
-        )
+        print("".join(grid[row][col].center(width) + ("|" if str(col) in "25" else "") for col in range(9)))
         if str(row) in "25":
             print(line)
     print()
@@ -44,7 +40,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    result = [values[i: i + n] for i in range(0, len(values), n)]
+    result = [values[i : i + n] for i in range(0, len(values), n)]
     return result
 
 
@@ -89,8 +85,8 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     block_y = pos[0] // 3
     block_values = []
 
-    for i in range(block_y*3, block_y*3 + 3):
-        for j in range(block_x*3, block_x*3 + 3):
+    for i in range(block_y * 3, block_y * 3 + 3):
+        for j in range(block_x * 3, block_x * 3 + 3):
             block_values.append(grid[i][j])
 
     return block_values
@@ -107,7 +103,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     """
     for i_idx, i in enumerate(grid):
         for col_idx, value in enumerate(i):
-            if value == '.':
+            if value == ".":
                 return (i_idx, col_idx)
 
 
@@ -135,7 +131,7 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
-    """ Решение пазла, заданного в grid """
+    """Решение пазла, заданного в grid"""
     """ Как решать Судоку?
         1. Найти свободную позицию
         2. Найти все возможные значения, которые могут находиться на этой позиции
@@ -154,13 +150,13 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
         for i in values:
             grid[pos[0]][pos[1]] = i
             if solve(grid) is None:
-                grid[pos[0]][pos[1]] = '.'
+                grid[pos[0]][pos[1]] = "."
             else:
                 return grid
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
-    """ Если решение solution верно, то вернуть True, в противном случае False """
+    """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
     if solution is None:
         return False
