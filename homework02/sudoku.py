@@ -189,8 +189,8 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     random_grid: list[list[str]] = solve(grid)
     while sum(1 for q in grid for e in q if e == ".") != (81 - N):
         row, col = random.randint(0, 8), random.randint(0, 8)
-        if random_grid[row][col] != ".":  # type: ignore
-            random_grid[row][col] = "."  # type: ignore
+        if random_grid[row][col] != ".":
+            random_grid[row][col] = "."  # type ignore
     return random_grid  # type: ignore
 
 
