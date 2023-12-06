@@ -27,7 +27,8 @@ def display(grid: tp.List[tp.List[str]]) -> None:
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
-        print("".join(grid[row][col].center(width) + ("|" if str(col) in "25" else "") for col in range(9)))
+        print("".join(grid[row][col].center(width) +
+              ("|" if str(col) in "25" else "") for col in range(9)))
         if str(row) in "25":
             print(line)
     print()
@@ -41,7 +42,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    return [values[i : i + n] for i in range(0, len(values), n)]
+    return [values[i: i + n] for i in range(0, len(values), n)]
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -186,12 +187,12 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     """
     N = min(N, 81)
     grid: list[list[str]] = [["."] * 9 for _ in range(9)] if not None else None
-    random_grid: list[list[str]] = solve(grid)
+    random_grid: list[list[str]] = solve(grid)  # type ignore
     while sum(1 for q in grid for e in q if e == ".") != (81 - N):
         row, col = random.randint(0, 8), random.randint(0, 8)
         if random_grid[row][col] != ".":
-            random_grid[row][col] = "."  # type ignore
-    return random_grid  # type: ignore
+            random_grid[row][col] = "."
+    return random_grid
 
 
 if __name__ == "__main__":
