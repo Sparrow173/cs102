@@ -2,6 +2,8 @@ import pathlib
 import random
 import time
 import typing as tp
+from typing import List
+
 
 T = tp.TypeVar("T")
 
@@ -195,7 +197,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
     N = min(N, 81)
-    grid: list[list[str]] = [["." for _ in range(9)] for _ in range(9)]
+    grid: List[List[str]] = [["." for _ in range(9)] for _ in range(9)]
     solve(grid)
     random_grid = random.sample(range(81), 81 - N)
     for i in random_grid:
