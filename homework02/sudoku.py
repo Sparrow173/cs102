@@ -41,8 +41,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    result = [values[i : i + n] for i in range(0, len(values), n)]
-    return result
+    return [values[i : i + n] for i in range(0, len(values), n)]
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -66,10 +65,7 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    col_values = []
-    for i in grid:
-        col_values.append(i[pos[1]])
-    return col_values
+    return [i[pos[1]] for i in grid]
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -82,15 +78,7 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    block_x = (pos[1] // 3) * 3
-    block_y = (pos[0] // 3) * 3
-    block_values = []
-
-    for i in range(block_y, block_y + 3):
-        for j in range(block_x, block_x + 3):
-            block_values.append(grid[i][j])
-
-    return block_values
+    return [grid[i][j] for i in range((pos[0] // 3) * 3, (pos[0] // 3) * 3 + 3) for j in range((pos[1] // 3) * 3, (pos[1] // 3) * 3 + 3)]
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -119,16 +107,14 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    result = set()
     row_values = get_row(grid, pos)
     col_values = get_col(grid, pos)
     block_values = get_block(grid, pos)
+    possible_values = set(map(str, range(1, 10)))
 
-    for num in range(1, 10):
-        str_num = str(num)
-        if (str_num not in row_values) and (str_num not in col_values) and (str_num not in block_values):
-            result.add(str_num)
-    return result
+    possible_values -= set(row_values + col_values + block_values)
+
+    return possible_values
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -143,25 +129,24 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     >>> solve(grid)
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
-    if find_empty_positions(grid) is None:
-        return grid
     pos = find_empty_positions(grid)
-    if pos is not None:
-        values = find_possible_values(grid, pos)
-        if values is not None:
-            for i in values:
-                grid[pos[0]][pos[1]] = i
-                if solve(grid) is None:
-                    grid[pos[0]][pos[1]] = "."
-                else:
-                    return grid
+    if not pos:
+        return grid
+    values = find_possible_values(grid, pos)
+    if values:
+        for i in values:
+            grid[pos[0]][pos[1]] = i
+            if solve(grid) is None:
+                grid[pos[0]][pos[1]] = "."
+            else:
+                return grid
     return None
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
-    if solution is None:
+    if not solution:
         return False
     for i in range(9):
         for j in range(9):
@@ -196,14 +181,13 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
     N = min(N, 81)
-    grid: List[List[str]] = [["." for _ in range(9)] for _ in range(9)]
-    solve(grid)
-    random_grid = random.sample(range(81), 81 - N)
-    for i in random_grid:
-        row, col = i // 9, i % 9
-        grid[row][col] = "."
-
-    return grid
+    grid: list[list[str]] = [["."] * 9 for _ in range(9)] if not None else None
+    random_grid: list[list[str]] = solve(grid)
+    while sum(1 for q in grid for e in q if e == ".") != (81 - N):
+        row, col = random.randint(0, 8), random.randint(0, 8)
+        if random_grid[row][col] != ".":  # type: ignore
+            random_grid[row][col] = "."  # type: ignore
+    return random_grid  # type: ignore
 
 
 if __name__ == "__main__":
