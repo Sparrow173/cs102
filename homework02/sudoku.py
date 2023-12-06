@@ -4,7 +4,6 @@ import time
 import typing as tp
 from typing import List
 
-
 T = tp.TypeVar("T")
 
 
