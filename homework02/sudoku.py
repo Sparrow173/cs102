@@ -82,12 +82,12 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    block_x = pos[1] // 3
-    block_y = pos[0] // 3
+    block_x = (pos[1] // 3) * 3
+    block_y = (pos[0] // 3) * 3
     block_values = []
 
-    for i in range(block_y * 3, block_y * 3 + 3):
-        for j in range(block_x * 3, block_x * 3 + 3):
+    for i in range(block_y, block_y + 3):
+        for j in range(block_x, block_x + 3):
             block_values.append(grid[i][j])
 
     return block_values
