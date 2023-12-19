@@ -140,7 +140,7 @@ def shortest_path(
     path.append(exit_coord)
 
     while grid[i][j] != 1:
-        if i > 0 and grid[i - 1][j] != '■' and grid[i - 1][j] == k - 1:
+        if i > 0 and grid[i - 1][j] != "■" and grid[i - 1][j] == k - 1:
             path.append((i - 1, j))
             i -= 1
             k -= 1
