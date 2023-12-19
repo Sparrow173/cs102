@@ -25,8 +25,8 @@ def remove_wall(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> Li
     :param coord:
     :return:
     """
-    x, y = coord
-    grid[x][y] = " "
+    x_point, y_point = coord
+    grid[x_point][y_point] = " "
     return grid
 
 
@@ -140,7 +140,7 @@ def shortest_path(
     path.append(exit_coord)
 
     while grid[i][j] != 1:
-        if i > 0 and grid[i - 1][j] == k - 1:
+        if i > 0 and grid[i - 1][j] != '?' and grid[i - 1][j] == k - 1:
             path.append((i - 1, j))
             i -= 1
             k -= 1
@@ -222,15 +222,15 @@ def solve_maze(
                 grid[i][j] = 0
 
     k = 0
-    x, y = exit_coordinations[1]
+    x_point, y_point = exit_coordinations[1]
     new_grid = deepcopy(grid)
-    while new_grid[x][y] == 0:
+    while new_grid[x_point][y_point] == 0:
         k += 1
         another_step = make_step(new_grid, k)
-        if encircled_exit(another_step, (x, y)):
+        if encircled_exit(another_step, (x_point, y_point)):
             break
 
-    result = shortest_path(new_grid, (x, y))
+    result = shortest_path(new_grid, (x_point, y_point))
     if not result:
         result = [another_step[1], another_step[0]]
 
