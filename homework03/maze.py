@@ -232,7 +232,7 @@ def solve_maze(
 
     result = shortest_path(new_grid, (x_point, y_point))
     if not result:
-        result = [tuple(map(int, another_step[1])), tuple(map(int, another_step[0]))]
+        result = [tuple(int(another_step[1])), tuple(int(another_step[0]))]
 
     return new_grid, result
 
