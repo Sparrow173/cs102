@@ -136,7 +136,7 @@ def shortest_path(
     """
     path = []
     i, j = exit_coord
-    k = grid[i][j]
+    k = int(grid[i][j])
     path.append(exit_coord)
 
     while grid[i][j] != 1:
