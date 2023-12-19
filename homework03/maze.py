@@ -206,8 +206,8 @@ def solve_maze(
     :param grid:
     :return:
     """
+    exits = set(get_exits(grid))
     exit_coordinations = list(get_exits(grid))
-    exits = list(exit_coordinations)
     if len(exits) == 1:
         return grid, exit_coordinations
 
@@ -216,9 +216,9 @@ def solve_maze(
         return grid, None
 
     grid[enter[0]][enter[1]] = 1
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if grid[i][j] == " " or grid[i][j] == "X":
+    for i, row in enumerate(grid):
+        for j, col in enumerate(row):
+            if col == " " or col == "X":
                 grid[i][j] = 0
 
     k = 0
