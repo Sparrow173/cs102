@@ -206,8 +206,8 @@ def solve_maze(
     :param grid:
     :return:
     """
-    exit_coordinations = set(get_exits(grid))
-    exits = set(exit_coordinations)
+    exit_coordinations = list(get_exits(grid))
+    exits = list(exit_coordinations)
     if len(exits) == 1:
         return grid, exit_coordinations
 
