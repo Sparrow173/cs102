@@ -8,19 +8,17 @@ import pandas as pd
 def print_grid(grid):
     for row in grid:
         for item in row:
-            print(f'{str(item):2}', end=' ')
+            print(f"{str(item):2}", end=" ")
         print()
 
-    print('======')
+    print("======")
 
 
 def create_grid(rows: int = 15, cols: int = 15) -> List[List[Union[str, int]]]:
     return [["■"] * cols for _ in range(rows)]
 
 
-def remove_wall(
-    grid: List[List[Union[str, int]]], coord: Tuple[int, int]
-) -> List[List[Union[str, int]]]:
+def remove_wall(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> List[List[Union[str, int]]]:
     """
 
     :param grid:
@@ -32,9 +30,7 @@ def remove_wall(
     return grid
 
 
-def bin_tree_maze(
-    rows: int = 15, cols: int = 15, random_exit: bool = True
-) -> List[List[Union[str, int]]]:
+def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> List[List[Union[str, int]]]:
     """
 
     :param rows:
@@ -82,8 +78,8 @@ def bin_tree_maze(
         dx, dy = choice(directions)
         grid[x + dx // 2][y + dy // 2] = " "
 
-    grid[input_x_in][input_y_in] = 'X'
-    grid[input_x_out][input_y_out] = 'X'
+    grid[input_x_in][input_y_in] = "X"
+    grid[input_x_out][input_y_out] = "X"
 
     return grid
 
@@ -97,19 +93,11 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     exits = []
 
     for index, row in enumerate(grid):
-        if row[0] == 'X':
+        if row[0] == "X":
             exits.append((index, 0))
-        if row[-1] == 'X':
+        if row[-1] == "X":
             exits.append((index, len(grid[0]) - 1))
-    '''
-    exits = []
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if grid[i][j] == "X":
-                exits.append((i, j))
 
-    print(exits)  # выходы
-    '''
     return exits
 
 
@@ -131,7 +119,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
                         grid[new_x][new_y] = k + 1
                         moved = True
     if not moved:
-        print('Лабиринт непроходим')
+        print("Лабиринт непроходим")
         exit()
     print_grid(grid)
     return grid
@@ -171,8 +159,8 @@ def shortest_path(
 
     if len(path) != grid[exit_coord[0]][exit_coord[1]]:
         for i in range(len(path) - 2, -1, -1):
-            if grid[path[i][0]][path[i][1]] != 'X':
-                grid[path[i][0]][path[i][1]] = ' '
+            if grid[path[i][0]][path[i][1]] != "X":
+                grid[path[i][0]][path[i][1]] = " "
                 new_exit_coord = path[i + 1]
                 temp_grid = deepcopy(grid)
                 return shortest_path(temp_grid, new_exit_coord)
@@ -188,17 +176,17 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     :return:
     """
     i, j = coord
-    if grid[i][j] != 'X':
+    if grid[i][j] != "X":
         return False
 
     count = 0
-    if i > 0 and grid[i - 1][j] in ['X', ' ']:
+    if i > 0 and grid[i - 1][j] in ["X", " "]:
         count += 1
-    if j > 0 and grid[i][j - 1] in ['X', ' ']:
+    if j > 0 and grid[i][j - 1] in ["X", " "]:
         count += 1
-    if i < len(grid) - 1 and grid[i + 1][j] in ['X', ' ']:
+    if i < len(grid) - 1 and grid[i + 1][j] in ["X", " "]:
         count += 1
-    if j < len(grid[0]) - 1 and grid[i][j + 1] in ['X', ' ']:
+    if j < len(grid[0]) - 1 and grid[i][j + 1] in ["X", " "]:
         count += 1
 
     if count == 3:
