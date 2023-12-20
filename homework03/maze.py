@@ -234,7 +234,7 @@ def solve_maze(
     if not result:
         result = [exits[1], exits[0]]
 
-    return new_grid, result
+    return new_grid, result[::-1]
 
 
 def add_path_to_grid(
