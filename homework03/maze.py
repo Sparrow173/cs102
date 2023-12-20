@@ -192,9 +192,8 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     if not count:
         return True
 
-    '''if ((x == 0 or x == len(grid) - 1) or (y == 0 or y == len(grid[0]) - 1)) and count == 2:
-        return False
-    '''
+    """if ((x == 0 or x == len(grid) - 1) or (y == 0 or y == len(grid[0]) - 1)) and count == 2:
+    """
     return False
 
 
