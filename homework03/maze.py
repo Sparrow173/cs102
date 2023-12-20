@@ -175,26 +175,26 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     :param coord:
     :return:
     """
-    i, j = coord
-    if grid[i][j] != "X":
-        return False
-
-    count = 0
-    if i > 0 and grid[i - 1][j] in ["X", " "]:
-        count += 1
-    if j > 0 and grid[i][j - 1] in ["X", " "]:
-        count += 1
-    if i < len(grid) - 1 and grid[i + 1][j] in ["X", " "]:
-        count += 1
-    if j < len(grid[0]) - 1 and grid[i][j + 1] in ["X", " "]:
-        count += 1
-
-    if count == 3:
+    x, y = coord
+    if grid[x][y] != "X":
         return True
 
-    if (i == 0 or i == len(grid) - 1) and (j == 0 or j == len(grid[0]) - 1):
-        return count == 2
+    count = 0
+    if x > 0 and grid[x - 1][y] == " ":
+        count += 1
+    if y > 0 and grid[x][y - 1] == " ":
+        count += 1
+    if x < len(grid) - 1 and grid[x + 1][y] == " ":
+        count += 1
+    if y < len(grid[0]) - 1 and grid[x][y + 1] == " ":
+        count += 1
 
+    if not count:
+        return True
+
+    '''if ((x == 0 or x == len(grid) - 1) or (y == 0 or y == len(grid[0]) - 1)) and count == 2:
+        return False
+    '''
     return False
 
 
@@ -207,12 +207,16 @@ def solve_maze(
     :return:
     """
     exit_coordinations = list(get_exits(grid))
-    exits = list(exit_coordinations)
+    exits = exit_coordinations.copy()
     if len(exits) == 1:
         return grid, exit_coordinations
 
     enter = exit_coordinations[0]
     if encircled_exit(grid, (enter[0], enter[1])):
+        return grid, None
+
+    exit = exit_coordinations[1]
+    if encircled_exit(grid, (exit[0], exit[1])):
         return grid, None
 
     grid[enter[0]][enter[1]] = 1
