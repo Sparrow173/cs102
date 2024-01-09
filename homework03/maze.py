@@ -135,33 +135,33 @@ def shortest_path(
     :return:
     """
     path = []
-    i, j = exit_coord
-    k = int(grid[i][j])
+    x, y = exit_coord
+    k = int(grid[x][y])
     path.append(exit_coord)
 
-    while grid[i][j] != 1:
-        if i > 0 and grid[i - 1][j] != "■" and grid[i - 1][j] == k - 1:
-            path.append((i - 1, j))
-            i -= 1
+    while grid[x][y] != 1:
+        if x > 0 and grid[x - 1][y] != "■" and grid[x - 1][y] == k - 1:
+            path.append((x - 1, y))
+            x -= 1
             k -= 1
-        elif j > 0 and grid[i][j - 1] == k - 1:
-            path.append((i, j - 1))
-            j -= 1
+        elif y > 0 and grid[x][y - 1] == k - 1:
+            path.append((x, y - 1))
+            y -= 1
             k -= 1
-        elif i < len(grid) - 1 and grid[i + 1][j] == k - 1:
-            path.append((i + 1, j))
-            i += 1
+        elif x < len(grid) - 1 and grid[x + 1][y] == k - 1:
+            path.append((x + 1, y))
+            x += 1
             k -= 1
-        elif j < len(grid[0]) - 1 and grid[i][j + 1] == k - 1:
-            path.append((i, j + 1))
-            j += 1
+        elif y < len(grid[0]) - 1 and grid[x][y + 1] == k - 1:
+            path.append((x, y + 1))
+            y += 1
             k -= 1
 
     if len(path) != grid[exit_coord[0]][exit_coord[1]]:
-        for i in range(len(path) - 2, -1, -1):
-            if grid[path[i][0]][path[i][1]] != "X":
-                grid[path[i][0]][path[i][1]] = " "
-                new_exit_coord = path[i + 1]
+        for x in range(len(path) - 2, -1, -1):
+            if grid[path[x][0]][path[x][1]] != "X":
+                grid[path[x][0]][path[x][1]] = " "
+                new_exit_coord = path[x + 1]
                 temp_grid = deepcopy(grid)
                 return shortest_path(temp_grid, new_exit_coord)
 
@@ -233,7 +233,7 @@ def solve_maze(
         if encircled_exit(another_step, (x_point, y_point)):
             break
 
-    result = shortest_path(new_grid, (x_point, y_point))
+    result = shortest_path(new_grid, exit_coordinations[0])
     if not result:
         result = [exits[1], exits[0]]
 
