@@ -6,15 +6,12 @@ import pandas as pd
 
 
 def print_grid(grid):
-    '''
     for row in grid:
         for item in row:
             print(f"{str(item):2}", end=" ")
         print()
 
     print("======")
-    '''
-    pass
 
 
 def create_grid(rows: int = 15, cols: int = 15) -> List[List[Union[str, int]]]:
@@ -124,7 +121,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     if not moved:
         print("Лабиринт непроходим")
         exit()
-    print_grid(grid)
+    # print_grid(grid)
     return grid
 
 
@@ -168,7 +165,7 @@ def shortest_path(
                 temp_grid = deepcopy(grid)
                 return shortest_path(temp_grid, new_exit_coord)
 
-    return path[::-1]
+    return path
 
 
 def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> bool:
