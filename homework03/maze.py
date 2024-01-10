@@ -98,7 +98,6 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
         if row[-1] == "X":
             exits.append((index, len(grid[0]) - 1))
 
-
     return exits
 
 
