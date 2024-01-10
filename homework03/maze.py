@@ -195,12 +195,12 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
         count += 1
 
     if count == 3:
-        return True
+        return False
 
     if (x == 0 or x == len(grid) - 1) and (y == 0 or y == len(grid[0]) - 1):
         return count == 2
 
-    return False
+    return True
 
 
 def solve_maze(
@@ -217,7 +217,7 @@ def solve_maze(
         return grid, exit_coordinations
 
     enter = exit_coordinations[0]
-    if encircled_exit(grid, (enter[0], enter[1])):
+    if not encircled_exit(grid, (enter[0], enter[1])):
         return grid, None
 
     grid[enter[0]][enter[1]] = 1
@@ -232,7 +232,7 @@ def solve_maze(
     while new_grid[x_point][y_point] == 0:
         k += 1
         another_step = make_step(new_grid, k)
-        if encircled_exit(another_step, (x_point, y_point)):
+        if not encircled_exit(another_step, (x_point, y_point)):
             break
 
     result = shortest_path(new_grid, (x_point, y_point))
