@@ -81,6 +81,9 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
     grid[input_x_in][input_y_in] = "X"
     grid[input_x_out][input_y_out] = "X"
 
+    for index, row in enumerate(grid):
+        grid[index] = row[::-1]
+
     return grid
 
 
@@ -253,8 +256,8 @@ def add_path_to_grid(
                 if (x, y) in path:
                     grid[x][y] = "X"
 
-    for index, row in enumerate(grid):
-        grid[index] = row[::-1]
+    '''for index, row in enumerate(grid):
+        grid[index] = row[::-1]'''
     return grid
 
 
