@@ -81,8 +81,10 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
     grid[input_x_in][input_y_in] = "X"
     grid[input_x_out][input_y_out] = "X"
 
+    '''
     for index, row in enumerate(grid):
         grid[index] = row[::-1]
+    '''
 
     return grid
 
@@ -178,24 +180,24 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     :param coord:
     :return:
     """
-    i, j = coord
-    if grid[i][j] != "X":
-        return False
+    x, y = coord
+    if grid[x][y] != "X":
+        return True
 
     count = 0
-    if i > 0 and grid[i - 1][j] in ["X", " "]:
+    if x > 0 and grid[x - 1][y] in ["X", " "]:
         count += 1
-    if j > 0 and grid[i][j - 1] in ["X", " "]:
+    if y > 0 and grid[x][y - 1] in ["X", " "]:
         count += 1
-    if i < len(grid) - 1 and grid[i + 1][j] in ["X", " "]:
+    if x < len(grid) - 1 and grid[x + 1][y] in ["X", " "]:
         count += 1
-    if j < len(grid[0]) - 1 and grid[i][j + 1] in ["X", " "]:
+    if y < len(grid[0]) - 1 and grid[x][y + 1] in ["X", " "]:
         count += 1
 
     if count == 3:
         return True
 
-    if (i == 0 or i == len(grid) - 1) and (j == 0 or j == len(grid[0]) - 1):
+    if (x == 0 or x == len(grid) - 1) and (y == 0 or y == len(grid[0]) - 1):
         return count == 2
 
     return False
