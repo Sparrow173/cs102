@@ -118,11 +118,10 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
                     if 0 <= new_x < len(grid) and 0 <= new_y < len(grid[0]) and grid[new_x][new_y] == 0:
                         grid[new_x][new_y] = k + 1
                         moved = True
-    """
+    
     if not moved:
-        print("Лабиринт непроходим")
-        exit()
-    """
+        return None
+
     # print_grid(grid)
 
     return grid
@@ -180,8 +179,10 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     """
 
     x, y = coord
-    if grid[x][y] != "X":
+    """
+    if grid[x][y] == "X":
         return True
+    """
 
     count = 0
     if x > 0 and grid[x - 1][y] in ["X", " "]:
@@ -193,13 +194,13 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     if y < len(grid[0]) - 1 and grid[x][y + 1] in ["X", " "]:
         count += 1
 
-    if count == 3:
-        return False
+    if count >= 1:
+        return True
 
-    if (x == 0 or x == len(grid) - 1) and (y == 0 or y == len(grid[0]) - 1):
+    if (x == 0 or x == len(grid) - 1) or (y == 0 or y == len(grid[0]) - 1):
         return count == 2
 
-    return True
+    return False
 
 
 def solve_maze(
@@ -219,6 +220,10 @@ def solve_maze(
 
     if not encircled_exit(grid, (enter[0], enter[1])):
         return grid, None
+    
+    exit = exit_coordinations[1]
+    if not encircled_exit(grid, (exit[0], exit[1])):
+        return grid, None
 
     grid[enter[0]][enter[1]] = 1
     for i in range(len(grid)):
@@ -232,8 +237,8 @@ def solve_maze(
     while new_grid[x_point][y_point] == 0:
         k += 1
         another_step = make_step(new_grid, k)
-
-        if not encircled_exit(another_step, (x_point, y_point)):
+        
+        if another_step is None:
             break
 
     result = shortest_path(new_grid, (x_point, y_point))
