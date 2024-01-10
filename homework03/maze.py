@@ -6,12 +6,15 @@ import pandas as pd
 
 
 def print_grid(grid):
+    '''
     for row in grid:
         for item in row:
             print(f"{str(item):2}", end=" ")
         print()
 
     print("======")
+    '''
+    pass
 
 
 def create_grid(rows: int = 15, cols: int = 15) -> List[List[Union[str, int]]]:
