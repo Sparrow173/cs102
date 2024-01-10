@@ -121,7 +121,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     if not moved:
         print("Лабиринт непроходим")
         exit()
-    print_grid(grid)
+    # print_grid(grid)
     return grid
 
 
@@ -165,7 +165,7 @@ def shortest_path(
                 temp_grid = deepcopy(grid)
                 return shortest_path(temp_grid, new_exit_coord)
 
-    return path[::-1]
+    return path
 
 
 def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> bool:
@@ -248,10 +248,13 @@ def add_path_to_grid(
     """
 
     if path:
-        for i, row in enumerate(grid):
-            for j, _ in enumerate(row):
-                if (i, j) in path:
-                    grid[i][j] = "X"
+        for x, row in enumerate(grid):
+            for y, _ in enumerate(row):
+                if (x, y) in path:
+                    grid[x][y] = "X"
+
+    for index, row in enumerate(grid):
+        grid[index] = row[::-1]
     return grid
 
 
