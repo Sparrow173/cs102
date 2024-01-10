@@ -135,33 +135,33 @@ def shortest_path(
     :return:
     """
     path = []
-    x, y = exit_coord
-    k = int(grid[x][y])
+    i, j = exit_coord
+    k = int(grid[i][j])
     path.append(exit_coord)
 
-    while grid[x][y] != 1:
-        if x > 0 and grid[x - 1][y] != "■" and grid[x - 1][y] == k - 1:
-            path.append((x - 1, y))
-            x -= 1
+    while grid[i][j] != 1:
+        if i > 0 and grid[i - 1][j] != "■" and grid[i - 1][j] == k - 1:
+            path.append((i - 1, j))
+            i -= 1
             k -= 1
-        elif y > 0 and grid[x][y - 1] == k - 1:
-            path.append((x, y - 1))
-            y -= 1
+        elif j > 0 and grid[i][j - 1] == k - 1:
+            path.append((i, j - 1))
+            j -= 1
             k -= 1
-        elif x < len(grid) - 1 and grid[x + 1][y] == k - 1:
-            path.append((x + 1, y))
-            x += 1
+        elif i < len(grid) - 1 and grid[i + 1][j] == k - 1:
+            path.append((i + 1, j))
+            i += 1
             k -= 1
-        elif y < len(grid[0]) - 1 and grid[x][y + 1] == k - 1:
-            path.append((x, y + 1))
-            y += 1
+        elif j < len(grid[0]) - 1 and grid[i][j + 1] == k - 1:
+            path.append((i, j + 1))
+            j += 1
             k -= 1
 
     if len(path) != grid[exit_coord[0]][exit_coord[1]]:
-        for x in range(len(path) - 2, -1, -1):
-            if grid[path[x][0]][path[x][1]] != "X":
-                grid[path[x][0]][path[x][1]] = " "
-                new_exit_coord = path[x + 1]
+        for i in range(len(path) - 2, -1, -1):
+            if grid[path[i][0]][path[i][1]] != "X":
+                grid[path[i][0]][path[i][1]] = " "
+                new_exit_coord = path[i + 1]
                 temp_grid = deepcopy(grid)
                 return shortest_path(temp_grid, new_exit_coord)
 
@@ -175,25 +175,26 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     :param coord:
     :return:
     """
-    x, y = coord
-    if grid[x][y] != "X":
-        return True
+    i, j = coord
+    if grid[i][j] != "X":
+        return False
 
     count = 0
-    if x > 0 and grid[x - 1][y] == " ":
+    if i > 0 and grid[i - 1][j] in ["X", " "]:
         count += 1
-    if y > 0 and grid[x][y - 1] == " ":
+    if j > 0 and grid[i][j - 1] in ["X", " "]:
         count += 1
-    if x < len(grid) - 1 and grid[x + 1][y] == " ":
+    if i < len(grid) - 1 and grid[i + 1][j] in ["X", " "]:
         count += 1
-    if y < len(grid[0]) - 1 and grid[x][y + 1] == " ":
+    if j < len(grid[0]) - 1 and grid[i][j + 1] in ["X", " "]:
         count += 1
 
-    if not count:
+    if count == 3:
         return True
 
-    """if ((x == 0 or x == len(grid) - 1) or (y == 0 or y == len(grid[0]) - 1)) and count == 2:
-    """
+    if (i == 0 or i == len(grid) - 1) and (j == 0 or j == len(grid[0]) - 1):
+        return count == 2
+
     return False
 
 
@@ -206,16 +207,12 @@ def solve_maze(
     :return:
     """
     exit_coordinations = list(get_exits(grid))
-    exits = exit_coordinations.copy()
+    exits = list(exit_coordinations)
     if len(exits) == 1:
         return grid, exit_coordinations
 
     enter = exit_coordinations[0]
     if encircled_exit(grid, (enter[0], enter[1])):
-        return grid, None
-
-    exit = exit_coordinations[1]
-    if encircled_exit(grid, (exit[0], exit[1])):
         return grid, None
 
     grid[enter[0]][enter[1]] = 1
@@ -233,11 +230,11 @@ def solve_maze(
         if encircled_exit(another_step, (x_point, y_point)):
             break
 
-    result = shortest_path(new_grid, exit_coordinations[0])
+    result = shortest_path(new_grid, (x_point, y_point))
     if not result:
         result = [exits[1], exits[0]]
 
-    return new_grid, result[::-1]
+    return new_grid, result
 
 
 def add_path_to_grid(
