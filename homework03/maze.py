@@ -248,10 +248,13 @@ def add_path_to_grid(
     """
 
     if path:
-        for i, row in enumerate(grid):
-            for j, _ in enumerate(row):
-                if (i, j) in path:
-                    grid[i][j] = "X"
+        for x, row in enumerate(grid):
+            for y, _ in enumerate(row):
+                if (x, y) in path:
+                    grid[x][y] = "X"
+
+    for index, row in enumerate(grid):
+        grid[index] = row[::-1]
     return grid
 
 
