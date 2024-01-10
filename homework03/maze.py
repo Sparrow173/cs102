@@ -11,7 +11,7 @@ def print_grid(grid):
             print(f"{str(item):2}", end=" ")
         print()
 
-    print("======")
+    print("=======")
 
 
 def create_grid(rows: int = 15, cols: int = 15) -> List[List[Union[str, int]]]:
