@@ -81,11 +81,6 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
     grid[input_x_in][input_y_in] = "X"
     grid[input_x_out][input_y_out] = "X"
 
-    '''
-    for index, row in enumerate(grid):
-        grid[index] = row[::-1]
-    '''
-
     return grid
 
 
@@ -102,6 +97,7 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
             exits.append((index, 0))
         if row[-1] == "X":
             exits.append((index, len(grid[0]) - 1))
+
 
     return exits
 
@@ -180,6 +176,7 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     :param coord:
     :return:
     """
+
     x, y = coord
     if grid[x][y] != "X":
         return True
@@ -217,6 +214,7 @@ def solve_maze(
         return grid, exit_coordinations
 
     enter = exit_coordinations[0]
+
     if not encircled_exit(grid, (enter[0], enter[1])):
         return grid, None
 
@@ -232,6 +230,7 @@ def solve_maze(
     while new_grid[x_point][y_point] == 0:
         k += 1
         another_step = make_step(new_grid, k)
+
         if not encircled_exit(another_step, (x_point, y_point)):
             break
 
@@ -258,8 +257,6 @@ def add_path_to_grid(
                 if (x, y) in path:
                     grid[x][y] = "X"
 
-    '''for index, row in enumerate(grid):
-        grid[index] = row[::-1]'''
     return grid
 
 
