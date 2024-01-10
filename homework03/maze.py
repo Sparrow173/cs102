@@ -118,10 +118,13 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
                     if 0 <= new_x < len(grid) and 0 <= new_y < len(grid[0]) and grid[new_x][new_y] == 0:
                         grid[new_x][new_y] = k + 1
                         moved = True
+    '''
     if not moved:
         print("Лабиринт непроходим")
         exit()
+    '''
     # print_grid(grid)
+
     return grid
 
 
