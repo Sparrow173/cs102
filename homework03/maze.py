@@ -109,22 +109,26 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     :return:
     """
 
+    new_grid = deepcopy(grid)
+
     moved = False
-    for row in range(len(grid)):
-        for col in range(len(grid[0])):
-            if grid[row][col] == k:
+    for row in range(len(new_grid)):
+        for col in range(len(new_grid[0])):
+            if new_grid[row][col] == k:
                 for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
                     new_x, new_y = row + dx, col + dy
-                    if 0 <= new_x < len(grid) and 0 <= new_y < len(grid[0]) and grid[new_x][new_y] == 0:
-                        grid[new_x][new_y] = k + 1
+                    if 0 <= new_x < len(new_grid) and 0 <= new_y < len(new_grid[0]) and new_grid[new_x][new_y] == 0:
+                        new_grid[new_x][new_y] = k + 1
                         moved = True
 
+    """
     if not moved:
         return None
+    """
+        
+    # print_grid(new_grid)
 
-    # print_grid(grid)
-
-    return grid
+    return new_grid
 
 
 def shortest_path(
@@ -238,8 +242,18 @@ def solve_maze(
         k += 1
         another_step = make_step(new_grid, k)
 
-        if another_step is None:
+        is_same = True
+        for x in range(len(new_grid)):
+            for y in range(len(new_grid[x])):
+                if another_step[x][y] != new_grid[x][y]:
+                    is_same = False
+        
+        print_grid(another_step)
+        if is_same:
             break
+        new_grid = deepcopy(another_step)
+        #  if another_step is None:
+        #     break
 
     result = shortest_path(new_grid, (x_point, y_point))
     if not result:
