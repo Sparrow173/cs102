@@ -118,7 +118,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
                     if 0 <= new_x < len(grid) and 0 <= new_y < len(grid[0]) and grid[new_x][new_y] == 0:
                         grid[new_x][new_y] = k + 1
                         moved = True
-    
+
     if not moved:
         return None
 
@@ -220,7 +220,7 @@ def solve_maze(
 
     if not encircled_exit(grid, (enter[0], enter[1])):
         return grid, None
-    
+
     exit = exit_coordinations[1]
     if not encircled_exit(grid, (exit[0], exit[1])):
         return grid, None
@@ -237,7 +237,7 @@ def solve_maze(
     while new_grid[x_point][y_point] == 0:
         k += 1
         another_step = make_step(new_grid, k)
-        
+
         if another_step is None:
             break
 
