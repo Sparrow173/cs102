@@ -10,13 +10,40 @@ class Console(UI):
 
     def draw_borders(self, screen) -> None:
         """ Отобразить рамку. """
-        pass
+        screen.addstr(0, 0, '-' * (self.life.width + 2))
+        for row in range(self.life.height):
+            screen.addch(row + 1, 0, '|')
+            screen.addch(row + 1, self.life.width + 1, '|')
+        screen.addstr(self.life.height + 1, 0, '-' * (self.life.width + 2))
 
     def draw_grid(self, screen) -> None:
         """ Отобразить состояние клеток. """
-        pass
+        for row in range(self.life.height):
+            for col in range(self.life.width):
+                if self.life.grid[row][col] == 1:
+                    screen.addch(row + 1, col + 1, '*')
 
     def run(self) -> None:
         screen = curses.initscr()
-        # PUT YOUR CODE HERE
-        curses.endwin()
+        curses.curs_set(0)
+
+        try:
+            while True:
+                self.draw_borders(screen)
+                self.draw_grid(screen)
+                self.life.step()
+        except KeyboardInterrupt:
+            pass
+        finally:
+            curses.endwin()
+
+
+if __name__ == '__main__':
+    life = GameOfLife((5, 5))
+    ui = Console(life)
+    ui.run()
+    '''
+    while life.is_changing and not life.is_max_generations_exceeded:
+        life.step()
+    '''
+    print(life.generations)
