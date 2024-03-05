@@ -4,6 +4,8 @@ import pygame
 from life import GameOfLife
 from pygame.locals import QUIT
 
+from ui import UI
+
 
 class GUI(UI):
     def __init__(self, life: GameOfLife, cell_size: int = 10, speed: int = 10) -> None:
