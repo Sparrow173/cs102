@@ -1,9 +1,9 @@
 import random
+from pprint import pprint as pp
 import typing as tp
 
 import pygame
 from pygame.locals import QUIT
-from pprint import pprint as pp
 
 Cell = tp.Tuple[int, int]
 Cells = tp.List[int]
