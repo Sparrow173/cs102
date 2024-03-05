@@ -3,7 +3,6 @@ from typing import List, Tuple
 import pygame
 from life import GameOfLife
 from pygame.locals import QUIT
-
 from ui import UI
 
 
