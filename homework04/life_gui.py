@@ -1,9 +1,8 @@
 from typing import List, Tuple
 
 import pygame
-from pygame.locals import QUIT
-
 from life import GameOfLife
+from pygame.locals import QUIT
 
 
 class GUI(UI):
