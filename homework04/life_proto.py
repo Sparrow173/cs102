@@ -11,9 +11,7 @@ Grid = tp.List[Cells]
 
 
 class GameOfLife:
-    def __init__(
-        self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10
-    ) -> None:
+    def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10) -> None:
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -31,16 +29,14 @@ class GameOfLife:
         self.speed = speed
 
     def draw_lines(self) -> None:
-        """ Отрисовать сетку """
+        """Отрисовать сетку"""
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (x, 0), (x, self.height))
+            pygame.draw.line(self.screen, pygame.Color('black'), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (0, y), (self.width, y))
+            pygame.draw.line(self.screen, pygame.Color('black'), (0, y), (self.width, y))
 
     def run(self) -> None:
-        """ Запустить игру """
+        """Запустить игру"""
         pygame.init()
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
@@ -107,17 +103,11 @@ class GameOfLife:
                 x = col * self.cell_size
                 y = row * self.cell_size
                 cell_rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
-                # print(f'{self.grid=}\n{self.grid[row][col]=}, {x=}, {y=}')
                 if self.grid[row][col] == 1:
-                    pygame.draw.rect(
-                        self.screen, pygame.Color('green'), cell_rect)
-                    # print('зеленый')
+                    pygame.draw.rect(self.screen, pygame.Color("green"), cell_rect)
 
                 else:
-                    pygame.draw.rect(
-                        self.screen, pygame.Color('white'), cell_rect)
-                    # print('белый')
-                # input()
+                    pygame.draw.rect(self.screen, pygame.Color("white"), cell_rect)
 
     def get_neighbours(self, cell: Cell) -> Cells:
         """
@@ -179,7 +169,7 @@ class GameOfLife:
         return new_grid
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     game = GameOfLife(320, 240, 40)
     grid = game.create_grid(randomize=True)
     pp(grid)

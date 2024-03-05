@@ -41,7 +41,7 @@ class GameOfLife:
         return grid
 
     def get_neighbours(self, cell: Cell) -> Cells:
-        neighbours = []  
+        neighbours = []
         row, col = cell
         for i in range(-1, 2):
             for j in range(-1, 2):
@@ -122,7 +122,7 @@ class GameOfLife:
                 file.write(line + "")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     random.seed(1234)
     life = GameOfLife((5, 5))
     while life.is_changing and not life.is_max_generations_exceeded:

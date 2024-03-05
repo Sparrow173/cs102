@@ -20,11 +20,9 @@ class GUI(UI):
 
     def draw_lines(self) -> None:
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (x, 0), (x, self.height))
+            pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (0, y), (self.width, y))
+            pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def draw_grid(self) -> None:
         for row in range(self.life.rows):
@@ -33,11 +31,9 @@ class GUI(UI):
                 y = row * self.cell_size
                 cell_rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
                 if self.life.curr_generation[row][col] == 1:
-                    pygame.draw.rect(
-                        self.screen, pygame.Color('green'), cell_rect)
+                    pygame.draw.rect(self.screen, pygame.Color("green"), cell_rect)
                 else:
-                    pygame.draw.rect(
-                        self.screen, pygame.Color('white'), cell_rect)
+                    pygame.draw.rect(self.screen, pygame.Color("white"), cell_rect)
 
     def mark_cell(self, pos: Tuple[int, int]):
         col = pos[0] // self.cell_size
@@ -79,12 +75,12 @@ class GUI(UI):
         pygame.quit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     life = GameOfLife((5, 5))
     ui = GUI(life, cell_size=40)
     ui.run()
-    '''
+    """
     while life.is_changing and not life.is_max_generations_exceeded:
         life.step()
-    '''
+    """
     print(life.generations)
